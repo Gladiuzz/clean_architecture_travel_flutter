@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/features/destination/domain/entities/destination_entity.dart';
 import 'package:travel/features/destination/presentation/pages/dashboard.dart';
 import 'package:travel/features/destination/presentation/pages/detail_destination_page.dart';
+import 'package:travel/features/destination/presentation/pages/search_destination_page.dart';
 
 class AppRoute {
   static const dashboard = '/';
@@ -19,6 +20,12 @@ class AppRoute {
         return MaterialPageRoute(
             builder: (context) => DetailDestinationPage(
                   destination: destination,
+                ));
+      case searchDestination:
+        final search = settings.arguments;
+        return MaterialPageRoute(
+            builder: (context) => SearchDestinationPage(
+                  searchText: search.toString(),
                 ));
       default:
         return _notFoundPage;

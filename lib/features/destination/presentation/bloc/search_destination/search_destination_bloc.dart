@@ -19,5 +19,8 @@ class SearchDestinationBloc
         (data) => emit(SearchDestinationLoaded(data)),
       );
     });
+    on<OnResetSearchDestination>((event, emit) {
+      emit(SearchDestinationInitial());
+    });
   }
 }

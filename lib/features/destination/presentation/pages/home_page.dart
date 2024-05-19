@@ -25,6 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final topDestinationController = PageController();
+  final searchText = TextEditingController();
 
   refresh() {
     context.read<TopDestinationBloc>().add(OnGetTopDestination());
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     refresh();
+    searchText.text = '';
     super.initState();
   }
 
@@ -118,9 +120,9 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.only(left: 24),
       child: Row(
         children: <Widget>[
-          const Expanded(
+          Expanded(
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 hintText: 'Search Destination Here...',
@@ -130,6 +132,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 contentPadding: EdgeInsets.all(0),
               ),
+              controller: searchText,
             ),
           ),
           const SizedBox(
@@ -137,7 +140,11 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton.filledTonal(
               onPressed: () {
-                Navigator.pushNamed(context, AppRoute.searchDestination);
+                Navigator.pushNamed(
+                  context,
+                  AppRoute.searchDestination,
+                  arguments: searchText.text,
+                );
               },
               icon: const Icon(
                 Icons.search,
@@ -156,10 +163,11 @@ class _HomePageState extends State<HomePage> {
         children: List.generate(list.length, (index) {
           return Padding(
             padding: EdgeInsets.only(
-                left: index == 0 ? 30 : 10,
-                right: index == list.length - 1 ? 30 : 10,
-                bottom: 10,
-                top: 4),
+              left: index == 0 ? 30 : 10,
+              right: index == list.length - 1 ? 30 : 10,
+              bottom: 10,
+              top: 4,
+            ),
             child: Material(
               color: Colors.white,
               elevation: 4,

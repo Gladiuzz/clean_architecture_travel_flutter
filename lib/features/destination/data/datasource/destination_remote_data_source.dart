@@ -37,11 +37,7 @@ class DestinationRemoteDataSourceImplementation
   Future<List<DestinationModel>> search(String query) async {
     Uri url = Uri.parse('${URLs.baseUrl}/destination/search.php');
     final response = await client.post(url, body: {
-      {
-        {
-          'query': query,
-        }
-      }
+      'query': query,
     }).timeout(const Duration(seconds: 1));
     if (response.statusCode == 200) {
       List list = jsonDecode(response.body);
